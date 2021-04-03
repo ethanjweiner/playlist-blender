@@ -6,7 +6,8 @@ function powerSet(array) {
   	const lengthSoFar = subsets.length;
     // Iterate over every result, to add on the current array[i] to every subset
     for (var x = 0; x < lengthSoFar; x++) {
-    	subsets.push(subsets[x].concat(array[i]));
+      const next = subsets[x].concat([array[i]]);
+      subsets.push(next);
     }
   }
   return subsets;

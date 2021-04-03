@@ -6,58 +6,48 @@ import * as setFunctions from "../setFunctions";
 
 const MIN_SIMILARITY = 0.5;
 
-// commonTracks: String String Playlists Number -> [List-of Tracks]
+// commonTracksByTitle : String String Playlists Number -> [List-of Tracks]
 // Provides all the tracks (in _platform_) that are common to at least _minCommon_ playlists
 const commonTracksByTitle = async (platform, token, playlists, minCommon) => {
-  // Generate all possible combinations among the playlists (nested foreach loops? should we use a matrix?) --- Cartesian Product
-
-  // For each combination, check if that combination is a "commonTrack" combination
-  // If so, find the first track in that combination whose platform is _platform_
-  // Add this track to _commonTracks_, else continue
   var commonTracks = [];
-
-  const products = trackProducts(playlists);
-
-  for (const combination of products) {
-    let commonTrack = await findCommonTrack(combination, minCommon, platform, token);
-    // Check for duplicate tracks here instead of later?
-    if (commonTrack) commonTracks.push(commonTrack);
+  const sets = crossProductSubsets(playlists, minCommon);
+  console.log(sets);
+  for (let i = 0; i < sets.length; i++) {
+    let currSet = sets[i];
+    if (allTracksSimilar(currSet)) {
+      const trackToAdd = await parseTrack(currSet, platform, token);
+      commonTracks.push(trackToAdd);
+    }
   }
+
   if (!commonTracks.length) {
     throw new Error ("No common tracks were found.");
   }
+
+  console.log("Common Tracks Found: ", commonTracks);
 
   return removeDuplicateTracks(commonTracks);
 
 }
 
-// trackProducts: [List-of Playlists] -> [List-of [List-of of Tracks]] 
-// Finds ALL cross-products of the tracks in _playlists_
-const trackProducts = (playlists) => {  
+const crossProductSubsets = (playlists, minCommon) => {
   const trackArrays = playlists.map(playlist => playlist.tracks);
-  return setFunctions.cartesian(...trackArrays);
+  console.log(trackArrays);
+  var playlistCombinations = setFunctions.subsets(trackArrays, minCommon);
+  var products = [];
+  for (const set of playlistCombinations) {
+    products = products.concat([...setFunctions.cartesian(...set)]);
+  }
+  return products;
 }
 
-// findCommonTrack : [List-of Track] Number String String -> Track
-// If there are _minCommon_ common tracks in _product_, return that track in _platform_
-const findCommonTrack = async (product, minCommon, platform, token) => {
-  let commonTrack;
-  
-  // Find the first combination where tracks are similar enough
-  const sets = setFunctions.subsets(product, minCommon);
-  
-  for (let i = 0; i < sets.length; i++) {
-    let currSet = sets[i]
-    if (allTracksSimilar(currSet)) { // Enough tracks in the product are similar
-      const candidate = currSet.find(track => track.platform === platform);
-
-      // If the tracks only showed up in a different platform, search for the tracks in the desired platform
-      commonTrack = candidate ? candidate : await apiInterface(platform, token).firstSearchResult(currSet[0].name, currSet[0].artists);
-      // End looping here, because the product contains a common artist (so no other subsets of the combination must be iterated over)
-      break;
-    } 
-  }
-  return commonTrack;
+// parseTrack : [List-of Tracks] String String -> Track
+// Provides the version of the track in _tracks_ that is in _pllatform_
+// Assumption: All tracks are similar
+const parseTrack = async (tracks, platform, token) => {
+  const candidate = tracks.find(track => track.platform === platform);
+  // If the tracks only showed up in a different platform, search for the tracks in the desired platform
+  return candidate ? candidate : await apiInterface(platform, token).firstSearchResult(currSet[0].name, currSet[0].artists);
 }
 
 // allTracksSimilar : [List-of Tracks] -> Boolean
