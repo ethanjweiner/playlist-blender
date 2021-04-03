@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:900|Work+Sans:300|Electrolize&display=swap");
+
+$main-gray: rgba(0, 0, 0, 0.815);
+$main-yellow: rgb(224, 203, 15);
+$spotify-green: #1DB954;
+$youtube-red: #f00;
+
+h1, h2, h3, h4, h5, h6, input {
+    font-family: 'Electrolize', sans-serif;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 4px;
+}
+.btn, .btn-lg, a {
+    font-family: 'Electrolize', sans-serif;
+    font-weight: 900;
+}
+body {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 300;
+}
+.card-header { 
+    font-family: 'Electrolize', sans-serif;
+}
+.card, label, .list-group-item, ul, li {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 300;
+}
+.material-icons {
+    &:hover {
+        color: gray;
+    }
+}
