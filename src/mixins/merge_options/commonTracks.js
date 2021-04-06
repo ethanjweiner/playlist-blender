@@ -9,6 +9,8 @@ const MIN_SIMILARITY = 0.5;
 // commonTracksByTitle : String String Playlists Number -> [List-of Tracks]
 // Provides all the tracks (in _platform_) that are common to at least _minCommon_ playlists
 const commonTracksByTitle = async (platform, token, playlists, minCommon) => {
+  var t0 = performance.now();
+  
   var commonTracks = [];
   const sets = crossProductSubsets(playlists, minCommon);
   console.log(sets);
@@ -24,7 +26,10 @@ const commonTracksByTitle = async (platform, token, playlists, minCommon) => {
     throw new Error ("No common tracks were found.");
   }
 
+  var t1 = performance.now();
+
   console.log("Common Tracks Found: ", commonTracks);
+  console.log("Performance time: "+(t1 - t0)+'ms');
 
   return removeDuplicateTracks(commonTracks);
 
