@@ -49,61 +49,31 @@ const commonArtists = async (playlists, minCommon) => {
   // If so, add this artist (the first one in the combination) to _commonTracks_, else continue
   var commonArtists = [];
 
-  // Extract artists from pliaylists in this function (create entire lists of artists)
-  const products = artistsProducts(playlists);
+  const artistArrays = playlists.map(playlist => 
+    // 3. Remove duplicate artists in one playlist
+    removeDuplicateArtists(
+    // 1. Grab the artists for each track in playlist (each track should already have the artists parsed)
+    playlist.tracks.map(track => track.artists)
+    // 2. Concatenate each [List-of Artists] onto an accumulator, to create a list of all artists in the playlists
+    .reduce((acc, curr) => acc.concat(curr), [])));
 
-  
-  for (const combination of products) {
-    let commonArtist = await findCommonArtist(combination, minCommon);
-    if (commonArtist) {
-      commonArtists.push(commonArtist);
+  const sets = setFunctions.products(artistArrays, minCommon);
+
+  for (let i = 0; i < sets.length; i++) {
+    if (allArtistsSimilar(sets[i])) {
+      const artistToAdd = sets[i][0];
+      if (artistToAdd) commonArtists.push(artistToAdd);
     }
   }
-  console.log(commonArtists);
+
   if (!commonArtists.length) {
     throw new Error ("No common artists were found.");
   }
+
+  console.log("Common Artists Found: ", commonArtists);
+
   return removeDuplicateArtists(commonArtists);
 };
-
-// artistsProducts : [List-of Playlists] -> [List-of [List-of Artists]]
-// Finds ALL cross-products of the artists in _playlists_
-const artistsProducts = (playlists) => {
-  // 1. Map playlists -> Lists of Artists
-  // Remove duplicates here
-
-  // Arrays of ALL possible artists form each playlist (channel- & track- name artists)
-  console.log(playlists);
-  const artistArrays = playlists.map(playlist => 
-      // 3. Remove duplicate artists in one playlist
-      removeDuplicateArtists(
-      // 1. Grab the artists for each track in playlist (each track should already have the artists parsed)
-      playlist.tracks.map(track => track.artists)
-      // 2. Concatenate each [List-of Artists] onto an accumulator, to create a list of all artists in the playlists
-      .reduce((acc, curr) => acc.concat(curr), [])));
-
-  console.log(artistArrays);
-
-  return setFunctions.cartesian(...artistArrays);
-}
-
-// findCommonArtist : [List-of String] Number String -> String
-// If there are _minCommon_ common artists in _product_, return the name of that artist
-const findCommonArtist = async (product, minCommon) => {
-  let commonArtist;
-  // Find the first combination where tracks are similar enough
-  const sets = setFunctions.subsets(product, minCommon);
-  
-  for (let i = 0; i < sets.length; i++) {
-    let currSet = sets[i]
-    if (allArtistsSimilar(currSet)) { // Enough tracks in the product are similar
-      commonArtist = currSet[0];
-      // End looping here, because the product contains a common artist (so no other subsets of the combination must be iterated over)
-      break;
-    } 
-  }
-  return commonArtist;
-}
 
 // allArtistsSimilar : [List-of Artists] -> Boolean
 // Determines if all artists are similar enough to be added to the intersection

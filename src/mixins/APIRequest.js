@@ -296,7 +296,6 @@ class SpotifyRequest extends APIRequest {
         }
 
         if (tracks.length > 100) {
-            console.log(tracks, tracks.slice(100));
             await this.addTracksToPlaylist(playlistId, tracks.slice(100));
         }
 
@@ -394,7 +393,6 @@ class YoutubeRequest extends APIRequest {
 
         };
 
-        console.log(trackName, features(trackName));
 
         return [].concat([channelName], mainArtists(trackName), features(trackName));
     }

@@ -12,13 +12,14 @@ const commonTracksByTitle = async (platform, token, playlists, minCommon) => {
   var t0 = performance.now();
   
   var commonTracks = [];
-  const sets = crossProductSubsets(playlists, minCommon);
-  console.log(sets);
+
+  const trackArrays = playlists.map(playlist => playlist.tracks);
+  const sets = setFunctions.products(trackArrays, minCommon);
+
   for (let i = 0; i < sets.length; i++) {
-    let currSet = sets[i];
-    if (allTracksSimilar(currSet)) {
-      const trackToAdd = await parseTrack(currSet, platform, token);
-      commonTracks.push(trackToAdd);
+    if (allTracksSimilar(sets[i])) {
+      const trackToAdd = await parseTrack(sets[i], platform, token);
+      if (trackToAdd) commonTracks.push(trackToAdd);
     }
   }
 
@@ -35,24 +36,14 @@ const commonTracksByTitle = async (platform, token, playlists, minCommon) => {
 
 }
 
-const crossProductSubsets = (playlists, minCommon) => {
-  const trackArrays = playlists.map(playlist => playlist.tracks);
-  console.log(trackArrays);
-  var playlistCombinations = setFunctions.subsets(trackArrays, minCommon);
-  var products = [];
-  for (const set of playlistCombinations) {
-    products = products.concat([...setFunctions.cartesian(...set)]);
-  }
-  return products;
-}
-
 // parseTrack : [List-of Tracks] String String -> Track
 // Provides the version of the track in _tracks_ that is in _pllatform_
 // Assumption: All tracks are similar
 const parseTrack = async (tracks, platform, token) => {
   const candidate = tracks.find(track => track.platform === platform);
   // If the tracks only showed up in a different platform, search for the tracks in the desired platform
-  return candidate ? candidate : await apiInterface(platform, token).firstSearchResult(currSet[0].name, currSet[0].artists);
+  console.log(tracks);
+  return candidate ? candidate : await apiInterface(platform, token).firstSearchResult(tracks[0].name, tracks[0].artists);
 }
 
 // allTracksSimilar : [List-of Tracks] -> Boolean
@@ -64,12 +55,13 @@ const allTracksSimilar = (tracks) => {
   const tracksToCompare = tracks;
   tracksToCompare.shift();
 
-  return tracksToCompare.reduce((acc, track) => {
+  for (const track of tracksToCompare) {
     if (!isSimilar(referenceTrack, track)) {
-      acc = false;
+      return false;
     }
-    return acc;
-  }, true);
+  }
+  
+  return true;
 };
 
 // isSimilar : Track Track -> Boolean
@@ -77,7 +69,6 @@ const allTracksSimilar = (tracks) => {
 const isSimilar = (track1, track2) => {
   const nameShared = shareName(track1, track2);
   const artistShared = shareArtist(track1, track2);
-  console.log(track1.name, track2.name, nameShared, artistShared);
   let basicSimilarity = (nameShared && artistShared);
   // If the track names are long enough, the artist is not necessary to get involved
   let exception = nameShared && track1.name.length > 10 && track2.name.length > 10;

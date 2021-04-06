@@ -30,4 +30,17 @@ let cartesian = (a, b, ...c) =>
   cartesian(product(a, b), ...c) : // Find the cartesian of the product of the first two arrays & the rest of the array
   a; // Once only one array exists, that is the final cartesian product
 
-export { cartesian, subsets };
+// products : {X} [List-of [List-of X]] Number -> [List-of [List-of X]]
+// Creates all products, of size _size_, that can be created from taking all 
+// possible Cartesian products (of size _size_) among _arrays_
+// Used for analysis of similarity of track names & artists
+const products = (arrays, size) => {
+  var arrayCombinations = subsets(arrays, size);
+  var _products = [];
+  for (const combination of arrayCombinations) {
+    _products = _products.concat([...cartesian(...combination)]);
+  }
+  return _products;
+}
+
+export { cartesian, subsets, products };
