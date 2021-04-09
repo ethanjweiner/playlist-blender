@@ -1,4 +1,4 @@
-const redirect_uri = "https://intersect-playlists.firebaseapp.com/__/auth/handler";
+const redirect_uri = "https://playlistblender.com/";
 
 // Spotify
 

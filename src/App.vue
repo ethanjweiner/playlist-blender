@@ -1,7 +1,7 @@
 <template>
   <div id="head">
     <div class="p-3" id="top-div">
-      <h1 class="text-center">MERGE PLAYLISTS</h1>
+      <h1 class="text-center">PLAYLIST BLENDER</h1>
     </div>
   </div>
   <div v-if="!state.merged">
@@ -33,7 +33,7 @@
           class="btn btn-lg mx-3 main-button"
           @click="main(state.destinationAccount, state.destinationName)"
         >
-          Merge
+          Blend!
         </button>
       </div>
     </div>
