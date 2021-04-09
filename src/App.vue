@@ -41,14 +41,11 @@
   <div v-else class="flex-grow-1">
     <PostMerge />
   </div>
-  <div
-    id="loading-screen"
-    class="d-flex align-items-center"
-    v-if="state.loading"
-  >
-    <div class="spinner-border text-warning" role="status">
+  <div id="loading-screen" class="align-items-center" v-if="state.loading">
+    <div class="spinner-border text-warning d-block" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
+    <p class="d-block">Note: large playlists can take a while.</p>
   </div>
 
   <div class="modal" id="error-modal" tabindex="-1">
@@ -175,8 +172,15 @@ h3 {
   position: fixed;
   .spinner-border {
     margin: 0 auto;
+    margin-top: 35vh;
     width: 10rem;
     height: 10rem;
+  }
+  p {
+    width: 10rem;
+    color: $main-yellow;
+    margin: auto;
+    margin-top: 20px;
   }
 }
 #error-screen {

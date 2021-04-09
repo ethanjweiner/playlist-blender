@@ -290,7 +290,6 @@ class SpotifyRequest extends APIRequest {
 
         try {
             await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, requestOptions);
-            console.log("Tracks added!");
         } catch (err) {
             throw new Error (err.message);
         }
@@ -503,7 +502,6 @@ class YoutubeRequest extends APIRequest {
                     body,
                     redirect: 'follow'
                 };
-                console.log(body);
                 try {
                     await fetch("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet", requestOptions);
                 } catch (err) {

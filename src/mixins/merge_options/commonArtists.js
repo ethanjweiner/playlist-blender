@@ -62,7 +62,7 @@ const commonArtists = async (playlists, minCommon) => {
   for (let i = 0; i < sets.length; i++) {
     if (allArtistsSimilar(sets[i])) {
       const artistToAdd = sets[i][0];
-      if (artistToAdd) commonArtists.push(artistToAdd);
+      if (artistToAdd && !commonArtists.includes(artistToAdd)) commonArtists.push(artistToAdd);
     }
   }
 
@@ -72,7 +72,7 @@ const commonArtists = async (playlists, minCommon) => {
 
   console.log("Common Artists Found: ", commonArtists);
 
-  return removeDuplicateArtists(commonArtists);
+  return commonArtists;
 };
 
 // allArtistsSimilar : [List-of Artists] -> Boolean

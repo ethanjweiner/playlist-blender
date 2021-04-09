@@ -14,14 +14,14 @@
       <img src="@/assets/images/Youtube_Music_Logo.png" alt="" />
       Youtube Music
     </a>
-    <a class="list-group-item list-group-item-action">
+    <a class="list-group-item list-group-item-action text-muted" disabled>
       <img src="@/assets/images/SoundCloud_Logo.png" alt="" />
-      Soundcloud
+      Soundcloud (coming soon)
     </a>
-    <a class="list-group-item list-group-item-action">
+    <!-- <a class="list-group-item list-group-item-action" disabled>
       <img src="@/assets/images/Apple_Music_Logo.png" alt="" />
-      Apple Music
-    </a>
+      Apple Music (coming soon)
+    </a> -->
   </ul>
 </template>
 

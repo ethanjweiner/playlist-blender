@@ -19,7 +19,7 @@ const commonTracksByTitle = async (platform, token, playlists, minCommon) => {
   for (let i = 0; i < sets.length; i++) {
     if (allTracksSimilar(sets[i])) {
       const trackToAdd = await parseTrack(sets[i], platform, token);
-      if (trackToAdd) commonTracks.push(trackToAdd);
+      if (trackToAdd && !includesTrack(commonTracks, trackToAdd)) commonTracks.push(trackToAdd);
     }
   }
 
@@ -32,8 +32,25 @@ const commonTracksByTitle = async (platform, token, playlists, minCommon) => {
   console.log("Common Tracks Found: ", commonTracks);
   console.log("Performance time: "+(t1 - t0)+'ms');
 
-  return removeDuplicateTracks(commonTracks);
+  return commonTracks;
 
+}
+
+// includesTrack : [List-of Track] Track -> Boolean
+// Does _arr_ already contain _trackCmp_?
+const includesTrack = (arr, trackCmp) => {
+  // areSameTrack : Track Track -> Boolean
+  // Do _track1_ and _track2_ contain the same contents?
+  const areSameTrack = (track1, track2) => {
+    return track1.name === track2.name && track1.platform === track2.platform;
+  }
+
+  for (const track of arr) {
+    if (areSameTrack(track, trackCmp)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // parseTrack : [List-of Tracks] String String -> Track
