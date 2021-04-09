@@ -1,4 +1,4 @@
-const redirect_uri = "http://localhost:8080/";
+const redirect_uri = "https://intersect-playlists.firebaseapp.com/__/auth/handler";
 
 // Spotify
 
@@ -39,7 +39,7 @@ const spotifyAuthEndpoint =
 
 const youtubeURL = "https://accounts.google.com/o/oauth2/v2/auth";
 const youtube_params = {
-  client_id: "869201632360-fhof8amq34lht7nujhed6iji4hif3um9.apps.googleusercontent.com",
+  client_id: "869201632360-43592s4bno9q57jrkrg1b0glp3uvlk4l.apps.googleusercontent.com",
   redirect_uri,
   response_type: "token",
   scope:
