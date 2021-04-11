@@ -96,15 +96,18 @@ const allArtistsSimilar = (artists) => {
 // Is _artist1_ similar enough to _artist2_ to add it to the list of common artists?
 
 const isSimilar = (artist1, artist2) => {
-  const artist1Str = new CleanString(artist1).clean().str;
-  const artist2Str = new CleanString(artist2).clean().str;
+  if (artist1 && artist2) {
+    const artist1Str = new CleanString(artist1).clean().str;
+    const artist2Str = new CleanString(artist2).clean().str;
+  
+    let stringsEqual = artist1Str === artist2Str;
+    let stringsOverlap = artist1Str.length > 4 && artist2Str.length > 4 && (artist1Str.includes(artist2Str) || artist2Str.includes(artist1Str));
+    let stringsSimilar = (artist1Str && artist2Str) ? stringSimilarity.compareTwoStrings(artist1Str, artist2Str) > MIN_SIMILARITY : false;
+  
+      // If tracks are not from the same platform, try to find some similarity
+    return (stringsEqual || stringsSimilar || stringsOverlap);
+  }
 
-  let stringsEqual = artist1Str === artist2Str;
-  let stringsOverlap = artist1Str.length > 4 && artist2Str.length > 4 && (artist1Str.includes(artist2Str) || artist2Str.includes(artist1Str));
-  let stringsSimilar = stringSimilarity.compareTwoStrings(artist1Str, artist2Str) > MIN_SIMILARITY;
-
-    // If tracks are not from the same platform, try to find some similarity
-  return (stringsEqual || stringsSimilar || stringsOverlap);
 }
 
 const containsArtist = (artistsArray, artistCmp) => {

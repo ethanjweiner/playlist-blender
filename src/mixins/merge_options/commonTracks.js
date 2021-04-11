@@ -1,7 +1,7 @@
 import stringSimilarity from "string-similarity";
 import apiInterface from "@/mixins/APIRequest";
 import {CleanString, Track} from "../builderClasses";
-import {removeDuplicateTracks} from "../helpers";
+import {removeDuplicateTracks, includesTrack} from "../helpers";
 import * as setFunctions from "../setFunctions";
 
 const MIN_SIMILARITY = 0.5;
@@ -34,23 +34,6 @@ const commonTracksByTitle = async (platform, token, playlists, minCommon) => {
 
   return commonTracks;
 
-}
-
-// includesTrack : [List-of Track] Track -> Boolean
-// Does _arr_ already contain _trackCmp_?
-const includesTrack = (arr, trackCmp) => {
-  // areSameTrack : Track Track -> Boolean
-  // Do _track1_ and _track2_ contain the same contents?
-  const areSameTrack = (track1, track2) => {
-    return track1.name === track2.name && track1.platform === track2.platform;
-  }
-
-  for (const track of arr) {
-    if (areSameTrack(track, trackCmp)) {
-      return true;
-    }
-  }
-  return false;
 }
 
 // parseTrack : [List-of Tracks] String String -> Track
@@ -97,10 +80,12 @@ const isSimilar = (track1, track2) => {
 const shareArtist = (track1, track2) => {
   for (const artist1 of track1.artists) {
     for (const artist2 of track2.artists) {
-      let artistsSimilar = stringSimilarity.compareTwoStrings(artist1, artist2) > MIN_SIMILARITY;
-      let artistsOverlap = artist1.includes(artist2) || artist2.includes(artist1);
-      if (artistsSimilar || artistsOverlap) {
-        return true;
+      if (artist1 && artist2) {
+        let artistsSimilar = (artist1 && artist2) ? stringSimilarity.compareTwoStrings(artist1, artist2) > MIN_SIMILARITY : false;
+        let artistsOverlap = artist1.includes(artist2) || artist2.includes(artist1);
+        if (artistsSimilar || artistsOverlap) {
+          return true;
+        }
       }
     }
   }
@@ -116,7 +101,7 @@ const shareName = (track1, track2) => {
 
   let stringsEqual = track1Str === track2Str;
   let stringsOverlap = track1Str.length > 4 && track2Str.length > 4 && (track1Str.includes(track2Str) || track2Str.includes(track1Str));
-  let stringsSimilar = stringSimilarity.compareTwoStrings(track1Str, track2Str) > MIN_SIMILARITY;
+  let stringsSimilar = (track1Str && track2Str) ? stringSimilarity.compareTwoStrings(track1Str, track2Str) > MIN_SIMILARITY : false;
 
     // If tracks are not from the same platform, try to find some similarity
   return (stringsEqual || stringsSimilar || stringsOverlap);

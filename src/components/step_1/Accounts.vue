@@ -1,5 +1,5 @@
 <template>
-  <div class="accounts mx-5 row">
+  <div class="accounts row">
     <Account
       v-for="(account, index) in state.accounts"
       :key="index"

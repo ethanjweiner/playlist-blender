@@ -1,4 +1,4 @@
-const redirect_uri = "https://playlistblender.com/";
+const redirect_uri = "http://localhost:8080/";
 
 // Spotify
 

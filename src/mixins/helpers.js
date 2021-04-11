@@ -12,8 +12,12 @@ const main = async (destinationAccount, destinationName) => {
 
   const {state} = store;
 
-  if (state.selectedPlaylists.length <  2) {
+  if (state.selectedPlaylists.length < 2) {
       throw new Error ("You must select at least 2 playlists to merge.");
+  }
+
+  if (state.selectedPlaylists.length > 5) {
+      throw new Error ("You can only select at most 5 playlists. You selected "+state.selectedPlaylists.length+".");
   }
 
   store.toggleLoading();
@@ -120,7 +124,22 @@ const playlistsString = (playlistNames) => {
   return str;
 }
 
+// includesTrack : [List-of Track] Track -> Boolean
+// Does _arr_ already contain _trackCmp_?
+const includesTrack = (arr, trackCmp) => {
+  // areSameTrack : Track Track -> Boolean
+  // Do _track1_ and _track2_ contain the same contents?
+  const areSameTrack = (track1, track2) => {
+    return track1.name === track2.name && track1.platform === track2.platform;
+  }
 
+  for (const track of arr) {
+    if (areSameTrack(track, trackCmp)) {
+      return true;
+    }
+  }
+  return false;
+}
 
 // removeDuplicateTracks : [List-of Track] -> [List-of Track]
 // Removes duplicates tracks from _arr_
@@ -176,4 +195,4 @@ Array.prototype.toString = function() {
 };
 
 
-export {main, getHashParams, removeHashParams, union, playlistsString, merge, playlistsWithTracks, removeDuplicateTracks, removeDuplicateArtists, tokenActive, grabTracks};
+export {main, getHashParams, removeHashParams, union, playlistsString, merge, playlistsWithTracks, removeDuplicateTracks, removeDuplicateArtists, tokenActive, grabTracks, includesTrack};

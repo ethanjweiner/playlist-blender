@@ -4,75 +4,79 @@
       <h1 class="text-center">PLAYLIST BLENDER</h1>
     </div>
   </div>
-  <div v-if="!state.merged">
-    <div>
-      <div class="mt-5 mx-5 row mb-3">
-        <div class="inline-block">
-          <h3 class="p-2 px-4 rounded">
-            Step 1: Add Accounts & Select Playlists
-          </h3>
+  <div class="main mx-3 mx-sm-4 mx-md-5">
+    <div v-if="!state.merged">
+      <div>
+        <div class="mt-5 row mb-3">
+          <div class="inline-block">
+            <h3 class="p-2 px-4 rounded">
+              Step 1: Add Accounts & Select Playlists
+            </h3>
+          </div>
         </div>
+        <Accounts />
       </div>
-      <Accounts />
-    </div>
-    <div v-if="state.accounts.length">
-      <div class="mt-4 mx-5 row mb-3">
-        <div class="inline-block">
-          <h3 class="p-2 px-4 rounded">Step 2: Select Merging Options</h3>
+      <div v-if="state.accounts.length">
+        <div class="mt-4 row mb-3">
+          <div class="inline-block">
+            <h3 class="p-2 px-4 rounded">
+              Step 2: Select Your Blending Options
+            </h3>
+          </div>
         </div>
+        <Options />
       </div>
-      <Options />
-    </div>
-    <div class="mx-5">
-      <div
-        class="d-grid gap-2 col-12 col-md-5 mx-auto mt-4 mt-md-5"
-        v-if="readyToMerge"
-      >
-        <button
-          type="button"
-          class="btn btn-lg mx-3 main-button"
-          @click="main(state.destinationAccount, state.destinationName)"
+      <div>
+        <div
+          class="d-grid gap-2 col-12 col-md-5 mx-auto mt-4 mt-md-5"
+          v-if="readyToMerge"
         >
-          Blend!
-        </button>
+          <button
+            type="button"
+            class="btn btn-lg mx-3 main-button"
+            @click="main(state.destinationAccount, state.destinationName)"
+          >
+            Blend!
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div v-else class="flex-grow-1">
-    <PostMerge />
-  </div>
-  <div id="loading-screen" class="align-items-center" v-if="state.loading">
-    <div class="spinner-border text-warning d-block" role="status">
-      <span class="visually-hidden">Loading...</span>
+    <div v-else class="flex-grow-1">
+      <PostMerge />
     </div>
-    <p class="d-block">Note: large playlists can take a while.</p>
-  </div>
+    <div id="loading-screen" class="align-items-center" v-if="state.loading">
+      <div class="spinner-border text-warning d-block" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="d-block">Note: large playlists can take a while.</p>
+    </div>
 
-  <div class="modal" id="error-modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content bg-danger" style="margin-top: 100px">
-        <div class="modal-header">
-          <h5 class="modal-title">Error</h5>
-          <button
-            type="button"
-            class="btn-close bg-white"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            @click="setErrorMessage('')"
-          ></button>
-        </div>
-        <div class="modal-body text-white">
-          <p>{{ errorMessage }}</p>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-            @click="setErrorMessage('')"
-          >
-            Close
-          </button>
+    <div class="modal" id="error-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content bg-danger" style="margin-top: 100px">
+          <div class="modal-header">
+            <h5 class="modal-title">Error</h5>
+            <button
+              type="button"
+              class="btn-close bg-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              @click="setErrorMessage('')"
+            ></button>
+          </div>
+          <div class="modal-body text-white">
+            <p>{{ errorMessage }}</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              @click="setErrorMessage('')"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-5">
+  <div>
     <form
       class="mx-3 rounded"
       @submit.prevent="main(state.destinationAccount, state.destinationName)"
@@ -32,7 +32,7 @@
             help_outline
           </span>
           <span
-            class="mx-3 custom-tooltip bg-black rounded p-1"
+            class="mx-sm-3 d-block d-sm-inline mt-3 mt-sm-0 mb-3 mb-sm-0 custom-tooltip bg-black rounded p-1"
             v-if="commonSongsTooltip"
           >
             <span class="material-icons align-middle">
@@ -68,7 +68,7 @@
             help_outline
           </span>
           <span
-            class="mx-3 custom-tooltip bg-black rounded p-1"
+            class="mx-sm-3 d-block d-sm-inline mt-3 mt-sm-0 mb-3 mb-sm-0 custom-tooltip bg-black rounded p-1"
             v-if="commonArtistsTooltip"
           >
             <span class="material-icons align-middle">
@@ -102,7 +102,7 @@
             help_outline
           </span>
           <span
-            class="mx-3 custom-tooltip bg-black rounded p-1"
+            class="mx-sm-3 d-block d-sm-inline mt-3 mt-sm-0 mb-3 mb-sm-0 custom-tooltip bg-black rounded p-1"
             v-if="unionTooltip"
           >
             <span class="material-icons align-middle">
