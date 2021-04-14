@@ -162,7 +162,7 @@
           type="text"
           class="form-control mt-2"
           id="destination=name"
-          placeholder="Merged Playlist"
+          placeholder="Blended Playlist"
           @input="updateDestinationName($event.target.value)"
         />
       </div>

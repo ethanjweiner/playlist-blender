@@ -2,13 +2,15 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import store from "./store.js";
-import { tokenActive } from "./mixins/helpers";
+import { tokenActive, getHashParams, removeHashParams } from "./mixins/helpers";
+import apiInterface from "./mixins/APIRequest";
 
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "material-design-icons";
+import router from './router'
 
-const app = createApp(App)
+const app = createApp(App).use(router)
 app.mount("#app");
 
 // APP & ACCOUNT SETUP
@@ -25,6 +27,32 @@ if (storedAccounts)
 app.config.errorHandler = (error) => {
     console.log(error);
     store.setErrorMessage(error.message);
+}
+
+// Hash params
+
+const hashParams = getHashParams();
+
+// Access_token hash params signifies authentication just completed, so add account
+if (hashParams.access_token) {
+  let platform;
+  switch (hashParams.state) {
+    case "spotify-request":
+      platform = "Spotify";
+      break;
+    case "youtube-request":
+      platform = "Youtube";
+      break;
+    default:
+      "Improper state";
+  }
+  const apiRequest = apiInterface(platform, hashParams.access_token);
+  apiRequest.getAccount().then((newAccount) => {
+    store.addAccount(newAccount);
+    store.updateLocalAccounts();
+    removeHashParams();
+  });
+  router.push({ name: "Blend" });
 }
 
 // Handle any other errors

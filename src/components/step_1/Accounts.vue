@@ -65,29 +65,6 @@ export default {
   setup() {
     const store = inject("store");
     const { addAccount, updateLocalAccounts, state } = store;
-    const hashParams = getHashParams();
-
-    // Access_token hash params signifies authentication just completed, so add account
-    if (hashParams.access_token) {
-      let platform;
-      switch (hashParams.state) {
-        case "spotify-request":
-          platform = "Spotify";
-          break;
-        case "youtube-request":
-          platform = "Youtube";
-          break;
-        default:
-          "Improper state";
-      }
-      console.log(hashParams);
-      const apiRequest = apiInterface(platform, hashParams.access_token);
-      apiRequest.getAccount().then((newAccount) => {
-        addAccount(newAccount);
-        updateLocalAccounts();
-        removeHashParams();
-      });
-    }
 
     return { state, addAccount };
   },

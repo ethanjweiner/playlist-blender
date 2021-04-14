@@ -5,6 +5,7 @@ import commonTracksByTitle from "./merge_options/commonTracks";
 import commonTracksByArtist from "./merge_options/commonArtists";
 import union from "./merge_options/union";
 import store from "../store";
+import router from "../router";
 
 // main : Account String -> ...
 // Using the playlists selected in options, posts new playlist with the merged tracks
@@ -38,7 +39,7 @@ const main = async (destinationAccount, destinationName) => {
   try {
       const {url} = await destinationRequest.createPlaylist(destinationName, tracksToPost, playlistsToMerge.map(playlist => playlist.name));
       store.setDestinationUrl(url);
-      store.toggleMerged();
+      router.push({ name: 'Post Blend' });
   } catch (err) {
       store.toggleLoading();
       throw new Error (err.message);
