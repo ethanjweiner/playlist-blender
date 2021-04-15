@@ -1,5 +1,5 @@
 <template>
-  <div id="post-merge">
+  <div id="post-merge" style="margin: 75px">
     <div class="mt-5 row mb-3" style="margin-top: 100px">
       <h1 class="p-2 px-4 rounded text-center">Merge Complete!</h1>
     </div>

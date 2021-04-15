@@ -133,20 +133,22 @@
         <li>Create a new playlist on the account which you specify</li>
         <li>
           Add the items determined by the algorithm to the new playlist on the
-          account which you specify (a maximum of 500 items will be added to the
-          playlist)
+          account which the user specifies (a maximum of 500 items will be added
+          to the playlist)
         </li>
         <li>
           Search for items in the platform of the account you specify as the
           destination of your playlist
         </li>
       </ul>
-      Listed below is a description of the specific scopes we request and how we
-      use them to perform our service.
+      <p>
+        Listed below is a description of the specific scopes we request and how
+        we use them to perform our service:
+      </p>
       <ul>
         <li>
           Our app will use
-          <span class="font-weight-bold"
+          <span style="text-decoration: underline"
             >https://googleapis.com/auth/youtube.readonly</span
           >
           in order to gather basic account data, gather public and private
@@ -156,16 +158,16 @@
         </li>
         <li>
           Our app will use
-          <span class="font-weight-bold"
+          <span style="text-decoration: underline"
             >https://googleapis.com/auth/youtube</span
           >
-          in order to create the new playlist on a user's account (if you
-          specify) and add the items retrieved by the algorithm to your
-          playlists. A maximum of 500 items will be added to a user's playlist
-          per use of our algorithm. We require access to this scope because in
-          order to add playlists and playlist items to a user's account, we need
-          to be able to directly modify the account. This scope grants the
-          ability to do so.
+          in order to create the new playlist on the account specified by the
+          user and add the items retrieved by the algorithm to this newly
+          created playlist. A maximum of 500 items will be added to a user's
+          playlist per use of our algorithm. We require access to this scope
+          because in order to add playlists and playlist items to a user's
+          account, we need to be able to directly modify the account. This scope
+          grants the ability to do so.
         </li>
       </ul>
       <h3 id="controls">7. CONTROLS FOR DO-NOT-TRACK FEATURES</h3>

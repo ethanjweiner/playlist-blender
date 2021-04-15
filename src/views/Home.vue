@@ -39,11 +39,7 @@
           <div class="row">
             <div class="col-sm-11 m-auto">
               <div class="responsive mb-3">
-                <iframe
-                  class="responsive-iframe"
-                  height="100%"
-                  src="https://www.youtube.com/embed/ih-i5kAkeRw"
-                ></iframe>
+                <iframe class="responsive-iframe" height="100%" src=""></iframe>
               </div>
             </div>
           </div>
