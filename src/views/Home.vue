@@ -16,18 +16,21 @@
     <div class="mx-5 mt-5">
       <button
         type="button"
-        class="btn btn-lg mx-3 main-button"
+        class="btn btn-lg mx-3 main-button mb-4"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
       >
         <span
-          class="material-icons"
+          class="material-icons d-none d-sm-inline"
           style="font-size: 33px; margin-right: 10px"
         >
           blender
         </span>
         Start Blending
-        <span class="material-icons" style="font-size: 33px; margin-left: 10px">
+        <span
+          class="material-icons d-none d-sm-inline"
+          style="font-size: 33px; margin-left: 10px"
+        >
           blender
         </span>
       </button>
