@@ -50,7 +50,7 @@
       </div>
       <div class="col-xl-6 mt-md-5 mt-2 mt-xl-0">
         <div class="description p-3 text-center rounded">
-          <h3 class="text-dark d-block">How it works</h3>
+          <h3 class="text-dark d-block">What to do</h3>
           <ol>
             <li>
               Grant access to Playlist Blender to view, add, and modify
@@ -75,6 +75,26 @@
               add tracks to that playlist.
             </li>
           </ol>
+          <hr class="mx-5" />
+          <h3 class="text-dark d-block">How we user your data</h3>
+          <ul>
+            <li>
+              To input the tracks from your playlists to the blending algorithm
+            </li>
+            <li>
+              To display to you the name of your accounts and information about
+              your playlists, to assist in the selection process
+            </li>
+            <li>
+              To post a new playlist to the third-party account of your choice
+            </li>
+            <li>To post tracks to the playlist of this account</li>
+            <span class="d-block mt-3">
+              Read our
+              <a @click="redirect" data-bs-dismiss="modal">Privacy Policy</a>
+              for more information.
+            </span>
+          </ul>
           <hr class="mx-5" />
           <h3 class="text-dark d-block">Who it's for</h3>
           <ul class="list-unstyled mx-3">
