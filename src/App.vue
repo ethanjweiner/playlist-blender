@@ -3,7 +3,7 @@
     <div class="p-3 d-flex-row" id="top-div">
       <div class="mx-md-5 mx-2 mb-3 pt-3">
         <h1 class="text-left mt-md-3 d-lg-inline mb-3 mr-lg-5">
-          PLAYLIST BLENDER
+          Playlist Blender
         </h1>
         <div class="d-inline mx-lg-3">
           <router-link :to="{ name: 'Home' }" class="btn btn-secondary d-inline"

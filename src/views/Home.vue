@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <div class="mx-md-5 rounded p-3 my-md-3 my-1" id="heading">
-      <h1 class="d-inline mx-3">Blend</h1>
+      <h2 class="d-inline mx-3">Blend</h2>
       <h3 class="d-inline">Verb</h3>
       <h4 class="d-block mx-3">\ 'blend \</h4>
-      <p class="d-block mx-3" id="definition">
+      <h3 class="d-block mx-3" id="definition">
         "to mix two or more substances together"
-      </p>
+      </h3>
       <p class="d-block mx-3 text-muted" style="margin-top: -10px">
         Hornby, Albert Sydney. Oxford Advanced Learner's Dictionary of Current
         English / [by] A.S. Hornby ; Editor Jonathan Crowther. Oxford, England
@@ -26,7 +26,7 @@
         >
           blender
         </span>
-        Start Blending
+        <h3 id="no-style">Make Your Playlist</h3>
         <span
           class="material-icons d-none d-sm-inline"
           style="font-size: 33px; margin-left: 10px"
@@ -42,7 +42,11 @@
           <div class="row">
             <div class="col-sm-11 m-auto">
               <div class="responsive mb-3">
-                <iframe class="responsive-iframe" height="100%" src=""></iframe>
+                <iframe
+                  class="responsive-iframe"
+                  height="100%"
+                  src="https://www.youtube.com/embed/K7OPAnINWpo"
+                ></iframe>
               </div>
             </div>
           </div>
@@ -50,7 +54,7 @@
       </div>
       <div class="col-xl-6 mt-md-5 mt-2 mt-xl-0">
         <div class="description p-3 text-center rounded">
-          <h3 class="text-dark d-block">What to do</h3>
+          <h3 class="text-dark d-block">How to mix</h3>
           <ol>
             <li>
               Grant access to Playlist Blender to view, add, and modify
@@ -76,7 +80,7 @@
             </li>
           </ol>
           <hr class="mx-5" />
-          <h3 class="text-dark d-block">How we user your data</h3>
+          <h3 class="text-dark d-block">How we use your data</h3>
           <ul>
             <li>
               To input the tracks from your playlists to the blending algorithm
@@ -198,7 +202,7 @@ a {
   left: 0;
   width: 100%;
 }
-h1 {
+h2 {
   color: white;
   font-size: 65px;
   @media (max-width: 768px) {
@@ -217,6 +221,17 @@ h3 {
     font-size: 20px;
   }
 }
+button {
+  #no-style {
+    color: black;
+  }
+  &:hover {
+    color: white;
+    #no-style {
+      color: white;
+    }
+  }
+}
 h4 {
   font-size: 20px;
   text-decoration: italic;
@@ -226,9 +241,10 @@ h4 {
 }
 #definition {
   color: white;
-  font-size: 35px;
+  font-size: 32px !important;
+  font-family: "Goudy Bookletter 1911", serif !important;
   @media (max-width: 768px) {
-    font-size: 25px;
+    font-size: 22px !important;
   }
 }
 #heading {
