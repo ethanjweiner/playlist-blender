@@ -1,4 +1,4 @@
-# Playlist Blender
+# Playlist Blender 🎵
 
 [Playlist Blender](https://playlistblender.com) takes the intersection or union of two or more playlists, same- or cross-platform. Playlist Blender is built with Vue.js.
 
