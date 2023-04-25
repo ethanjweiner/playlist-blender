@@ -1,19 +1,5 @@
-# intersect-playlists
+# Playlist Blender
 
-## Project setup
-```
-npm install
-```
+[Playlist Blender](https://playlistblender.com) takes the intersection or union of two or more playlists, same- or cross-platform. Playlist Blender is built with Vue.js.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Feel free to watch the [introductory video](https://www.youtube.com/watch?v=K7OPAnINWpo&t=126s) or [tech talk](https://www.youtube.com/watch?v=hqWAYC8PWxg&t=3s).
